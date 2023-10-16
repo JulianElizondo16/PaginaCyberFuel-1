@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ComentariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Aca lo que estamos haciendo es la llamada a las rutas
+
+//el primer 'asd' es al URL aca lo que estamos haciedno es que con el ->name('') le estamos dando un nombre a esa ruta para llamarla
+Route::get('/', HomeController::class)->name('home');
+Route::get('Comentarios', ComentariosController::class)->name('comentarios');
+
+
+
+
+
+
+
+
+
+
 
 Route::middleware([
     'auth:sanctum',
