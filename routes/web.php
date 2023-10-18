@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ComentariosController;
+use App\Models\Comentario;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,19 @@ use App\Http\Controllers\ComentariosController;
 
 //el primer 'asd' es al URL aca lo que estamos haciedno es que con el ->name('') le estamos dando un nombre a esa ruta para llamarla
 Route::get('/', HomeController::class)->name('home');
-Route::get('Comentarios', ComentariosController::class)->name('comentarios');
+
+
+
+//ACA ESTAMOS LLAMANDO A TODOS LOS CONTROLADORES DE COMENTARIOS CONTROLLER
+
+Route::controller(ComentariosController::class)->group(function(){
+
+Route::get('Comentarios', 'index')->name('comentarios.home');
+
+Route::post('Comentarios', 'GenerarComentario')->name('comentarios.generar');
+
+
+});
 
 
 

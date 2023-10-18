@@ -83,12 +83,7 @@ textarea {
                                   <!-- Este HREF lo que hace el route es llamar a la ruta del controlador, mejor dicho el url -->
             <a class="navbar-brand" href="{{route('home')}}">
                 <!-- Logo -->
-                <img
-                    src="/img/imgPruebas/imagen.png"
-                    height="50"
-                    alt="Logo"
-                    loading="lazy"
-                />
+                <img src="/img/imgPruebas/imagen.png" height="50" alt="Logo" loading="lazy" />
             </a>
                 <!-- Links de las navs -->
                 <ul class="navbar-nav mb-0 mb-lg-0">
@@ -101,7 +96,7 @@ textarea {
                     </li>
                     <li class="nav-item">
                                               <!-- Este HREF lo que hace el route es llamar a la ruta del controlador, mejor dicho el url -->
-                        <a class="nav-link" href="{{route('comentarios')}}">Comentarios</a>
+                        <a class="nav-link" href="{{route('comentarios.home')}}">Comentarios</a>
                     </li>
                     
                 </ul>
@@ -110,25 +105,49 @@ textarea {
                                     <div class="d-flex align-items-center">
                     <!--Aca voy a agregar el boton para enviar el mensaje de comentario-->
                     {{-- Creacion del formulario --}}
+
+
                     <div id="contact" class=" btn btn-primary me-3">Contactanos</div>
                         <div id="contactForm">
                         <h1  style="margin-bottom: 10px;">Comentarios</h1>
-                        <form class="container mt-4">
+
+                        {{-- Aca estamos creando en el 'name='' ' va como se llaman las tablas donde se van a ingresar los datos.--}}
+                        {{-- En el form va la vinculacion de los datos, necesita tener el metodo "POST" y en el 'action' estaria yendo la ruta del controlador. --}}
+
+                        {{-- Esta ruta me esta devolviendo la ruta de GenerarComentarios --}}
+                        <form class="container mt-4" action="{{route('comentarios.generar')}}" method="POST">
                             
-                            <input placeholder="Nombre" type="text" required class="form-control mt-3" />
-                            <input placeholder="Email" type="email" required class="form-control mt-3" />
-                            <label for="motivo">Selecciona el motivo:</label>
-                            <select id="motivo" name="motivo" class="form-select" required>
+                            @csrf  {{-- GENERA UN TOKEN PARA QUE PUEDA FUNCIONAR. --}}
+
+                            <input placeholder="Nombre" type="text" name="name" required class="form-control mt-3" />
+
+                            <input placeholder="Email" type="email" name="email" required class="form-control mt-3" />
+
+                            <label>
+                              
+                              Selecciona el motivo:
+
+                              <select name="motivo" class="form-select" required>
                                 <option value="" disabled selected hidden>Selecciona un motivo</option>
-                                <option value="comentario">Comentario</option>
-                                <option value="queja">Queja</option>
-                                <option value="ayuda">Necesito Ayuda</option>
+                                <option value="Comentario">Comentario</option>
+                                <option value="Queja">Queja</option>
+                                <option value="Solicitud de ayuda">Necesito Ayuda</option>
+
                             </select>
-                            <input placeholder="Mensaje" class="form-control mt-3"/>
+
+                            </label>
+
+                            
+                            <input maxlength="1000" placeholder="Mensaje" type="text" name="descripcion" class="form-control mt-3"/>
                             <button class="btn btn-primary mt-3" type="submit">Enviar</button>
                         </form>
                         </div>
+
+
                         {{-- Fin del formulario --}}
+
+
+                        
                     <!--Aca voy a agregar el boton para enviar el mensaje de comentario-->
                     <button type="button" class="btn btn-primary me-3">Login</button>
                     <button type="button" class="btn btn-primary me-3">Sign up</button>
