@@ -27,12 +27,24 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::controller(ComentariosController::class)->group(function(){
 
-Route::get('Comentarios', 'index')->name('comentarios.home');
+Route::get('comentarios', 'index')->name('comentarios.home');
 
-Route::post('Comentarios', 'GenerarComentario')->name('comentarios.generar');
+Route::post('comentarios', 'GenerarComentario')->name('comentarios.generar');
 
+//muestra el Comentario a detalle
+Route::get('comentarios/{comentario}', 'show')->name('comentarios.show');
 
+//EDITAR EL Comentario
+Route::get('comentarios/{comentario}/edit', 'edit') ->name('comentarios.edit');
+
+//PARA GUARDAR LOS DATOS
+Route::put('comentarios/{comentario}', 'update')->name('comentarios.update');
+
+//Eliminar DATOS DE LA TABLA
+Route::delete('comentarios/{comentario}','destroy')->name('comentarios.delete');
 });
+
+
 
 
 

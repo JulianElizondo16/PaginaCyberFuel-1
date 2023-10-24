@@ -1,6 +1,6 @@
 <!--Estas son directivas de "blade"-->
 <!--Agregar la extension de html-->
-@extends('paginas_Principales.index')
+@extends('paginas_Principales.resumenComentarios')
 
 <!--Agregar la extension de inyectables-->
 @extends('Inyectables_navegacion.navs')
@@ -8,7 +8,8 @@
 @extends('Inyectables_navegacion.header')
 @extends('Inyectables_navegacion.secciones')
 @extends('Inyectables_navegacion.SeccionesImagenes')
+@extends('Inyectables_navegacion.resumenComentarios')
 
 <!--Crear seccion para hacer el llamado de la pestania-->
-@section('title', 'Pagina principal')
+@section('title')
 

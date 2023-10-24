@@ -50,13 +50,45 @@
 .media-comment {
     margin-top:20px
 }
+    /* Estilos personalizados para reducir el ancho del formulario */
+    .smaller-form {
+        max-width: 700px; /* Define el ancho máximo del formulario */
+        margin: 0 auto; /* Centra el formulario en el contenedor */
+    }
+
+    .smaller-input {
+        width: 100%; /* Para que los campos de entrada ocupen todo el ancho */
+    }
+
+    .smaller-button {
+        width: auto; /* Ajusta el ancho del botón al contenido */
+    }
+    /* Estilos personalizados para centrar el título con el formulario */
+    .centered-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 </style>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<div>
+
 <ul>
     <br><br><br><br><br>
 {{-- PRUEBA DE BARRA DE FILTRACION --}}
-       
+       <div class="container">
+        <h1 class="text-center mt-4">Búsqueda de motivos</h1>
+        <hr>
+        <div class="d-md-flex justify-content-center">
+            <form action="{{ route('comentarios.home') }}" method="GET" class="text-center">
+                <div class="form-group">
+                    <input type="text" name="busqueda" class="form-control" placeholder="Buscar..." />
+                </div>
+                <div class="form-group mt-2">
+                    <button type="submit" class="btn btn-dark">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 {{-- FINAL PRUEBA DE BARRA DE FILTRACION --}}
 
     @foreach ($comentarios as $comentario)
@@ -68,7 +100,7 @@
             <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
             <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
               <div class="g-mb-15">
-                <h3 class="h3 g-color-gray-dark-v1 mb-0"> {{ $comentario->name }}</h3>
+                <h3 class="h3 g-color-gray-dark-v1 mb-0">{{ $comentario->name }}</h3>
 
             <br>
                 <h5 class="h5 g-color-gray-dark-v1 mb-0">Motivo de la consulta: {{$comentario->motivo}}</h5>
@@ -82,45 +114,74 @@
                 <li class="list-inline-item ml-auto">
                   <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#">
                     <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
-                    Responder 
-                  </a>
+                    Responder</a>
+                    
+                </li>
+                <li>
+                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{{route('comentarios.show', $comentario->id)}}">
+                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                        Mas informacion</a>
                 </li>
               </ul>
             </div>
+            
         </div>
     </div>
 </div>
 </div>
 @endforeach
 </ul>
-
 {{ $comentarios->links() }}
 </div>
-{{-- SCRIPT PARA QUE SE OCULTEN --}}
 
+{{-- ACA VAMOS A HACER EL GENERAR UN COMENTARIO NUEVO. --}}
+{{-- ACA VAMOS A HACER EL GENERAR UN COMENTARIO NUEVO. --}}
 
- {{-- ESTE ES EL CODIGO PARA MOSTRAR LOS COMENTARIOS CREADOS EN LA PAGINA DE COMENTARIOS 
-    
-    CUIDADO AL BORRAR O EDITAR
-
-    
-
-<div class="comment-box">
-    <h1>Comentarios Realizados</h1>
-    {{-- ACA COMIENZA EL BUCLE PARA IR IMPRIMIENDO LOS COMENTARIOS REALIZADOS 
-    <ul class="comment-list">
-        @foreach ($comentarios as $comentario)
-            <li class="comment-item">
-                <a class="comment-link" href="{{ route('comentarios.show', $comentario->id) }}">
-                    {{$comentario->motivo}}
-                    <br>
-                    {{ $comentario->name }}
-                    <hr>
-                </a>
-            </li>
-        @endforeach
-    </ul>
-    {{ $comentarios->links() }}
+<div role="main" class="main">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col">
+                <div class="blog-posts single-post">
+                    <div class="post-block mt-3 post-leave-comment">
+                        <div class="centered-form">
+                            <h4 class="mb-3">Deja un comentario</h4>
+                            <form class="contact-form p-2 rounded bg-color-grey smaller-form" action="{{ route('comentarios.generar') }}" method="POST">
+                                @csrf
+                                <div class="p-2">
+                                <div class="row">
+                                    <div class="form-group col-lg-6 col-12">
+                                        <label class="form-label required font-weight-bold text-dark">Nombre Completo</label>
+                                        <input placeholder="Ingrese su Nombre" type="text" name="name" data-msg-required="Please enter your name." maxlength="100" class="form-control smaller-input" name="name" required>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-12">
+                                        <label class="form-label required font-weight-bold text-dark">Correo Electronico</label>
+                                        <input placeholder="Email" type="email" value="" data-msg-required="Please enter your email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control smaller-input" name="email" required>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label>Selecciona el motivo:</label>
+                                        <select name="motivo" class="form-select smaller-input" required>
+                                            <option value="" disabled selected hidden>Selecciona un motivo</option>
+                                            <option value="Comentario">Comentario</option>
+                                            <option value="Queja">Queja</option>
+                                            <option value="Solicitud de ayuda">Necesito Ayuda</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label class="form-label required font-weight-bold text-dark">Comentario</label>
+                                        <textarea maxlength="1000" data-msg-required="Please enter your message." rows="6" class="form-control smaller-input" name="descripcion" required></textarea>
+                                    </div>
+                                    <div class="form-group col-12 mb-0 text-center">
+                                        <input type="submit" class="btn btn-primary btn-modern smaller-button" data-loading-text="Loading">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
---}}
+
+</div>
 @endsection
