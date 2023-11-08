@@ -8,7 +8,6 @@
 @extends('Inyectables_navegacion.secciones')
 @extends('Inyectables_navegacion.SeccionesImagenes')
 @extends('Inyectables_navegacion.comentariosEstilos')
-@extends('Inyectables_navegacion.PruebacomentariosEstilos')
 
 <!--Crear seccion para hacer el llamado de la pestania-->
 @section('title', 'Pagina Comentarios')
